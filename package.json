@@ -8,7 +8,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "predeploy" : "expo build:web",
-    "deploy" : "gh-pages -d build"
+    "deploy" : "gh-pages -d web-build"
   },
   "dependencies": {
     "expo": "~40.0.0",
