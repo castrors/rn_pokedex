@@ -3,9 +3,9 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import { Text, Image } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Ability, Move, Pokemon, Type } from '../api/pokemonApi';
-import { HorizontalList } from '../components/HorizontalList';
-import { PokemonImage } from '../components/PokemonImage';
-import { Spacer } from '../components/Spacer';
+import { HorizontalList } from './HorizontalList';
+import { PokemonImage } from './PokemonImage';
+import { Spacer } from './Spacer';
 import { capitalize, getBackgroundColor } from '../utils/utils';
 
 const deviceWidth = Dimensions.get('window').width;
