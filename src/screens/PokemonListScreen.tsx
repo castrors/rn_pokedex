@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ListRenderItem } from 'react-native';
+import { View, Text, StyleSheet, ListRenderItem, ActivityIndicator } from 'react-native';
 import { PokemonCard } from '../components/PokemonCard';
 import PropTypes from 'prop-types';
 import { fetchPokemons, Pokemon } from '../api/pokemonApi';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { withNavigation } from 'react-navigation';
 
-export function PokemonListScreen() {
+function PokemonListScreen({ navigation }: { navigation: any }) {
     const [pokemonList, setPokemonList] = useState<Pokemon[]>([])
 
     useEffect(() => {
@@ -17,25 +18,40 @@ export function PokemonListScreen() {
     }, [])
 
     const renderPokemonCards: ListRenderItem<Pokemon> = ({ item }) => (
-        <PokemonCard
-            number={item.id}
-            name={item.name}
-            type={`${item.types[0].type.name}`}
-        />
+        <TouchableOpacity
+            onPress={() => navigation.navigate('Details', { pokemon: item })}>
+            <PokemonCard
+                number={item.id}
+                name={item.name}
+                type={`${item.types[0].type.name}`}
+            />
+        </TouchableOpacity>
     )
 
     return (
-        <View>
-            <FlatList
-                data={pokemonList}
-                keyExtractor={(pokemon) => `${pokemon.id}`}
-                renderItem={renderPokemonCards}
-                numColumns={2}
-            />
+        <View style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}>
+            {pokemonList.length === 0
+                ? <ActivityIndicator size="large" />
+                : <FlatList
+                    data={pokemonList}
+                    keyExtractor={(pokemon) => `${pokemon.id}`}
+                    renderItem={renderPokemonCards}
+                    numColumns={2}
+                />
+            }
+
+
         </View>
     );
 }
 
+PokemonListScreen.navigationOptions = {
+    title: 'Pokedex'
+}
 
 
 const styles = StyleSheet.create({
@@ -43,3 +59,5 @@ const styles = StyleSheet.create({
         fontSize: 20
     }
 });
+
+export default withNavigation(PokemonListScreen)

@@ -168,7 +168,7 @@ const getPokemon = async (id: number): Promise<Pokemon> => {
 
 export const fetchPokemons = async (): Promise<Pokemon[]> => {
     const pokemonList = []
-    for (let i = 1; i <= 150; i++) {
+    for (let i = 1; i <= 151; i++) {
         const pokemon = await getPokemon(i)
         pokemonList.push(pokemon)
     }
